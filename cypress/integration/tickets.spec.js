@@ -19,4 +19,14 @@ describe("Tickets", () =>{
     it("Select the vip ticket in radio button", () =>{
         cy.get("#vip").check();
     });    
+
+    it("Select 'Social Media' and check", () => {
+        cy.get("#social-media").check();
+    });
+
+    it("Select 'Friends and Publication' and check. And Select 'Friends' and uncheck", () =>{
+        cy.get("#friend").check();
+        cy.get("#publication").check();
+        cy.get("#friend").uncheck();
+    });
 });
