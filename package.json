@@ -1,0 +1,19 @@
+{
+  "name": "curso_cypress",
+  "version": "1.0.0",
+  "description": "Curso da Udemy de Cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "keywords": [
+    "cypress",
+    "test",
+    "curso"
+  ],
+  "author": "Alessandro Mortari",
+  "license": "MIT",
+  "dependencies": {
+    "cypress": "^6.0.0"
+  }
+}
