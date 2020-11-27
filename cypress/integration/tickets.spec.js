@@ -1,7 +1,6 @@
 describe("Tickets", () =>{
     beforeEach(() => cy.visit("https://ticket-box.s3.eu-central-1.amazonaws.com/index.html"))
-    it("Has 'Ticket-Box' header's heading", ()=>{
-    });
+    
     it("Fills all the text input fields", () =>{
         const firstName = "Alessandro";
         const lastName = "Mortari";
@@ -28,5 +27,49 @@ describe("Tickets", () =>{
         cy.get("#friend").check();
         cy.get("#publication").check();
         cy.get("#friend").uncheck();
+    });
+
+    it("Has 'Ticket-Box' header's heading", ()=>{
+        cy.get("header h1").should("contain", "TICKETBOX");
+    });
+
+    it("alerts on invalid email", ()=>{
+        cy.get("#email")
+            .as("email")
+            .type("alessandromortari-gmail.com");
+
+        cy.get("#email.invalid").should("exist");        
+
+        cy.get("@email").type("mortari7@gmail.com");
+        cy.get("#email.invalid").should("not.exist");
+    });
+
+    it.only("fills and reset the form", ()=>{
+        const firstName = "Alessandro";
+        const lastName = "Mortari";
+        const fullName = `${firstName} ${lastName}`;
+
+        cy.get("#first-name").type(firstName);
+        cy.get("#last-name").type(lastName);
+        cy.get("#email").type("mortari7@hotmail.com");
+        cy.get("#requests").type("teste");
+        cy.get("#ticket-quantity").select("2");
+        cy.get("#vip").check();
+
+        cy.get("#friend").check();
+        cy.get("#publication").check();
+        cy.get("#friend").uncheck();
+
+        cy.get("#signature").type(fullName);
+        cy.get("#agree").click();
+
+        cy.get("button[type='submit']")
+            .as("submitButton")
+            .should("not.be.disabled");
+
+        cy.get("button[type='reset']").click();
+
+        cy.get("@submitButton").should("be.disabled");
+        
     });
 });
